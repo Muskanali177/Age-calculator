@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+      body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: hsl(192, 51%, 39%);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="date"],
+button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 19px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: black;
+  color: #fff;
+  cursor: pointer;
+
+}
+
+button:hover {
+  background-color: hwb(329 38% 12%);
+}
+
+p#result {
+  margin-top: 20px;
+  font-size: 18px;
+}
+    </style>
+</head>
+<body>
+ <div class="container">
+        <h1>Age Calculator</h1>
+        <label for="birthDate">Enter your birth year :</label>
+            <input type="date" id="birthDate">
+            <button id="calculateBtn">Calculate</button>
+            <p id="result"></p>
+        </div>
+ <script>
+   const calculateAge = () => {
+  const birthDateInput = new Date(document.getElementById("birthDate").value);
+  const currentDate = new Date();
+  
+  // Calculate age
+  let ageYears = currentDate.getFullYear() - birthDateInput.getFullYear();
+  let ageMonths = currentDate.getMonth() - birthDateInput.getMonth();
+  let ageDays = currentDate.getDate() - birthDateInput.getDate();
+
+  // Adjust age if birth month is after current month or birth day is after current day
+  if (ageMonths < 0 || (ageMonths === 0 && ageDays < 0)) {
+    ageYears--;
+    ageMonths += 12;
+    if (ageDays < 0) {
+      ageDays += new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+    }
+  }
+
+  // Display age
+  const result = document.getElementById("result");
+  result.textContent = `You are ${ageYears} years, ${ageMonths} months, and ${ageDays} days old.`;
+}
+
+document.getElementById("calculateBtn").addEventListener("click", calculateAge);
+     </script>
+</body>
+</html>
